@@ -34,4 +34,4 @@ jobs:
           echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
           eval "$(ssh-agent -s)"
           ssh-add private_key
-          rsync deployments
+          rsync terraform
