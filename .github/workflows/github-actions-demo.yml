@@ -27,16 +27,11 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Rsync Deploy
-        env:
-          PRIVATE_KEY: ${{ secrets.EC2_PRIVATE_KEY  }}
-          HOSTNAME: ${{ secrets.HOSTNAME  }}
-          USER_NAME: ${{ secrets.USER  }}
-
         uses: burnett01/rsync-deployments@5.1
         with:
           switches: -avzr --delete
           path: ./
           remote_path: /home/${{ secrets.USER }}/
-          remote_host: <host>.compute.amazonaws.com
+          remote_host: ${{ secrets.HOSTNAME}}
           remote_user: ${{ secrets.USER }}
           remote_key: "${{ secrets.EC2_PRIVATE_KEY }}"
