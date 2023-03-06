@@ -35,7 +35,7 @@ jobs:
         uses: burnett01/rsync-deployments@5.1
         with:
           switches: -avzr --delete
-          path: ./*
+          path: ./
           remote_path: /home/${{ secrets.USER }}/
           remote_host: <host>.compute.amazonaws.com
           remote_user: ${{ secrets.USER }}
