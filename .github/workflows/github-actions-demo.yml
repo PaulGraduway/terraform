@@ -26,15 +26,17 @@ jobs:
           path: "terraform"
 
       # Runs a single command using the runners shell
-      - name: Deploy in EC2
+      - name: Rsync Deploy
         env:
           PRIVATE_KEY: ${{ secrets.EC2_PRIVATE_KEY  }}
           HOSTNAME: ${{ secrets.HOSTNAME  }}
           USER_NAME: ${{ secrets.USER  }}
 
-        run: |
-          echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
-          eval "$(ssh-agent -s)"
-          ssh-add private_key
-          ls -a
-          rsync terraform
+        uses: burnett01/rsync-deployments@5.1
+        with:
+          switches: -avzr --delete
+          path: ./*
+          remote_path: /home/${{ secrets.USER }}/
+          remote_host: <host>.compute.amazonaws.com
+          remote_user: ${{ secrets.USER }}
+          remote_key: "${{ secrets.EC2_PRIVATE_KEY }}"
