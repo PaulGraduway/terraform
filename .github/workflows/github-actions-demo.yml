@@ -22,7 +22,7 @@ jobs:
           node-version: "16"
 
       - name: Install Dependencies
-        run: cd terraform && npm ci --omit=dev
+        run: cd terraform && ls && npm ci --omit=dev
 
       - name: Rsync Deploy
         uses: burnett01/rsync-deployments@5.1
